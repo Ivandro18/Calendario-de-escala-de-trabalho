@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.ivandrosilva.calendarioescala.R
@@ -20,9 +21,16 @@ class MesAdapter(
     ) : ViewHolder( itemView )  {
 
         val txtMes: TextView = itemView.findViewById(R.id.txtMes)
-
+        val rvDias: RecyclerView = itemView.findViewById(R.id.recyclerDias)
+        lateinit var diasAdapter: DiaAdapter
         fun bind(mes: Mes) { // conecta com a interface
             txtMes.text = mes.mes
+
+            diasAdapter = DiaAdapter()
+
+            rvDias.adapter = diasAdapter
+
+            rvDias.layoutManager = GridLayoutManager ( itemView.context , 7)// cria o layout do recyclerView
 
             txtMes.setOnClickListener{
                 clique(mes.mes)
