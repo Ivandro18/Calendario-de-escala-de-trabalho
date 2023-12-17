@@ -1,4 +1,4 @@
-package com.ivandrosilva.calendarioescala.view
+package com.ivandrosilva.calendarioescala.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,24 +6,19 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ivandrosilva.calendarioescala.R
+import com.ivandrosilva.calendarioescala.dataclass.Dia
 
 class DiaAdapter
 //private val clique: (String) -> Unit // evento de clique do item do recycle
  : RecyclerView.Adapter<DiaAdapter.DiaViewHolder>() {
-    private var listadias = mutableListOf<Int>()
-
-    init {
-        for (i in 1..42){ // simular os dias do mes
-            listadias.add(i)
-        }
-    }
+    private var dias = mutableListOf<Dia>()
 
     inner class DiaViewHolder(
         itemView: View
     ) : RecyclerView.ViewHolder( itemView )  {
         val txtDia: TextView = itemView.findViewById(R.id.textDia)
-        fun bind(dia: Int) {
-            txtDia.text = dia.toString()
+        fun bind(dia: Dia) {
+            txtDia.text = dia.dia
 
 //            txtMes.setOnClickListener{
 //                clique(mes.mes)
@@ -32,7 +27,7 @@ class DiaAdapter
 
 
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiaAdapter.DiaViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiaViewHolder {
 
 
 
@@ -48,12 +43,17 @@ class DiaAdapter
     }
 
     override fun onBindViewHolder(holder: DiaViewHolder, position: Int) {
-        val dia = listadias[position]
+        val dia = dias[position]
         holder.bind(dia)
     }
 
     override fun getItemCount(): Int {
-        return listadias.size
+        return dias.size
+    }
+
+    fun atualizarListaDados(novaLista: MutableList<Dia>) {
+        dias = novaLista //atualiza a lista
+        notifyDataSetChanged() // notifica o recycler
     }
 
 

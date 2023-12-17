@@ -1,4 +1,12 @@
 package com.ivandrosilva.calendarioescala.dataclass
 
-data class Mes (var mes: String){
+
+data class Mes (val nMes: Int, val mesAno: String){
+    val dias = mutableListOf<Dia>()
+
+
+    fun addDia(dia: Dia){
+        dias.add(dia)
+    }
+
 }

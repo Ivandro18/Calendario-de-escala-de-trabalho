@@ -6,7 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ivandrosilva.calendarioescala.R
-import com.ivandrosilva.calendarioescala.dataclass.Mes
+import com.ivandrosilva.calendarioescala.adapters.MesAdapter
+import com.ivandrosilva.calendarioescala.services.CalendarioService
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,7 +20,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val listaMeses = mutableListOf(Mes("Janeiro"),Mes("Fervereiro"),Mes("Março"),Mes("Abril"))
+        val calendarioService = CalendarioService(2022,5)
+        val listaMeses = calendarioService.getLista()
 
         rvListaMes = findViewById(R.id.recyclerMes) // instancia o recycler view
 
@@ -34,6 +36,6 @@ class MainActivity : AppCompatActivity() {
         rvListaMes.adapter = mesAdapter
 
         rvListaMes.layoutManager = LinearLayoutManager( this)// cria o layout do recyclerView
-
+        rvListaMes.scrollToPosition(calendarioService.getMesAtual())// vai para a pagina especifica
     }
 }
