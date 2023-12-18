@@ -15,18 +15,16 @@ import com.ivandrosilva.calendarioescala.dataclass.Dia
 import java.time.LocalDate
 
 class DiaAdapter(
-private val clique: (String) -> Unit // evento de clique do item do recycle
+private val clique: (String,CardView) -> Unit // evento de clique do item do recycle
 )
  : RecyclerView.Adapter<DiaAdapter.DiaViewHolder>() {
     private var dias = mutableListOf<Dia>()
-    var ultimoDiaSelecionado = 0
     inner class DiaViewHolder(
         itemView: View
     ) : RecyclerView.ViewHolder( itemView )  {
         val cdDia: CardView = itemView.findViewById(R.id.cdDia)
         val txtDia: TextView = itemView.findViewById(R.id.textDia)
         val heHoje: ImageView = itemView.findViewById(R.id.marcaDiaAtual)
-        var diaSelecionado = false
 
         fun bind(dia: Dia) {
             if (dia.dia == ""){ // deixa invisivel os primeiros dias do mes antes do inicio
@@ -38,27 +36,11 @@ private val clique: (String) -> Unit // evento de clique do item do recycle
                     heHoje.isInvisible = false
                 }
             }
-            if (ultimoDiaSelecionado != position) cdDia.setBackgroundResource(R.color.white)
-
             cdDia.setOnClickListener {
-                clique(dia.dia)
-                Log.i("d", " posicao $position  diaSelecionado $ultimoDiaSelecionado")
-                if (diaSelecionado == false) {
-                    cdDia.setBackgroundResource(R.color.verde)
-                    diaSelecionado = true
-                }
-                else{
-                    cdDia.setBackgroundResource(R.color.white)
-                    diaSelecionado = false
-                }
-
-                if (ultimoDiaSelecionado != 0) notifyItemChanged(ultimoDiaSelecionado)
-                ultimoDiaSelecionado = position
+                clique(dia.dia,cdDia)
+                cdDia.setBackgroundResource(R.color.verde)
             }
-
         }
-
-
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiaViewHolder {
 
@@ -88,6 +70,4 @@ private val clique: (String) -> Unit // evento de clique do item do recycle
         dias = novaLista //atualiza a lista
         notifyDataSetChanged() // notifica o recycler
     }
-
-
 }

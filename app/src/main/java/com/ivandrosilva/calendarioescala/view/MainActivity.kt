@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ivandrosilva.calendarioescala.R
@@ -26,11 +27,15 @@ class MainActivity : AppCompatActivity() {
 
         val calendarioService = CalendarioService(2023,1)
         val listaMeses = calendarioService.getLista()
-        var diaSelecionado: TextView
+        var diaSelecionado: CardView? = null
         rvListaMes = findViewById(R.id.recyclerMes) // instancia o recycler view
 
-        mesAdapter = MesAdapter{ nome ->
-            Toast.makeText(this, "Mes de  $nome", Toast.LENGTH_SHORT).show()// popup na tela
+        mesAdapter = MesAdapter{ dia , card->
+            Toast.makeText(this, "Mes de  $dia", Toast.LENGTH_SHORT).show()// popup na tela
+            if (diaSelecionado != card){ // faz auternar o dia do mes que foi selecionado
+                diaSelecionado?.setBackgroundResource(R.color.white)
+                diaSelecionado = card
+            }
         }
 
         //mesAdapter = MesAdapter()
