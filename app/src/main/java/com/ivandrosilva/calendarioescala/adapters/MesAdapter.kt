@@ -27,12 +27,12 @@ class MesAdapter(
         fun bind(mes: Mes) { // conecta com a interface
             txtMes.text = mes.mesAno
 
-            diasAdapter = DiaAdapter()
+            diasAdapter = DiaAdapter(clique)
             diasAdapter.atualizarListaDados(mes.dias)
 
             rvDias.adapter = diasAdapter
 
-            rvDias.layoutManager = GridLayoutManager ( itemView.context , 7)// cria o layout do recyclerView
+            //rvDias.layoutManager = GridLayoutManager ( itemView.context , 7)// cria o layout do recyclerView
 
             txtMes.setOnClickListener{
                 //clique(mes.mes)

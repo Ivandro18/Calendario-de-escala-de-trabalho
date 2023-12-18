@@ -9,10 +9,11 @@ class CalendarioService {
     var contadorMes = 0
     var anoInicial = 2022
     val mapCalendario: MutableMap<LocalDate, Dia> = mutableMapOf() // para mapear os dias do calendario, pra ficar mais facil achar para adicionar os eventos
-    var dataMapa = LocalDate.now()
+    var dataMapa : LocalDate
     constructor(currentYear: Int, numberOfYears: Int){
 
         anoInicial = currentYear
+        dataMapa = LocalDate.of(anoInicial,1,1)
 
         for (year in currentYear until currentYear + numberOfYears) {
             for (month in 1..12) {
@@ -37,6 +38,7 @@ class CalendarioService {
             val dia = Dia(day.toString(),dataMapa)
             mes.addDia(dia)
             mapCalendario[dataMapa] = dia
+            dataMapa = dataMapa.plusDays(1)
         }
         listaMeses.add(mes)
 

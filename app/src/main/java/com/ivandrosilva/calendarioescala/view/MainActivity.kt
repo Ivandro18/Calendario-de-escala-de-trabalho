@@ -1,6 +1,8 @@
 package com.ivandrosilva.calendarioescala.view
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,14 +17,16 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mesAdapter: MesAdapter
     private lateinit var rvListaMes: RecyclerView
+    private lateinit var botao: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val calendarioService = CalendarioService(2022,5)
+        val calendarioService = CalendarioService(2023,1)
         val listaMeses = calendarioService.getLista()
-
+        var diaSelecionado: TextView
         rvListaMes = findViewById(R.id.recyclerMes) // instancia o recycler view
 
         mesAdapter = MesAdapter{ nome ->
@@ -37,5 +41,10 @@ class MainActivity : AppCompatActivity() {
 
         rvListaMes.layoutManager = LinearLayoutManager( this)// cria o layout do recyclerView
         rvListaMes.scrollToPosition(calendarioService.getMesAtual())// vai para a pagina especifica
+
+        botao = findViewById(R.id.button)
+        botao.setOnClickListener{
+            mesAdapter.atualizarListaDados(listaMeses)
+        }
     }
 }
