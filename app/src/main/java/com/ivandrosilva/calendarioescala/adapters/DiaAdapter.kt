@@ -15,7 +15,7 @@ import com.ivandrosilva.calendarioescala.dataclass.Dia
 import java.time.LocalDate
 
 class DiaAdapter(
-private val clique: (String,CardView) -> Unit // evento de clique do item do recycle
+private val clique: (Dia,CardView) -> Unit // evento de clique do item do recycle
 )
  : RecyclerView.Adapter<DiaAdapter.DiaViewHolder>() {
     private var dias = mutableListOf<Dia>()
@@ -34,12 +34,16 @@ private val clique: (String,CardView) -> Unit // evento de clique do item do rec
                 if (LocalDate.now() == dia.dataMapa){
                     txtDia.setTextColor(Color.WHITE)
                     heHoje.isInvisible = false
+                    selecionaDia(dia)
                 }
             }
             cdDia.setOnClickListener {
-                clique(dia.dia,cdDia)
-                cdDia.setBackgroundResource(R.color.verde)
+                selecionaDia(dia)
             }
+        }
+        private fun selecionaDia(dia: Dia){
+            clique(dia,cdDia)
+            cdDia.setBackgroundResource(R.color.verde)
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiaViewHolder {
