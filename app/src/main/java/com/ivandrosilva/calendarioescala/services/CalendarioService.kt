@@ -22,6 +22,29 @@ class CalendarioService {
             println()
         }
     }
+    companion object{
+        fun getDataFormatada(data: LocalDate): String{
+            return "${data.dayOfMonth} de ${CalendarioService.getMonthName(data.monthValue)} de ${data.year}"
+        }
+
+        private fun getMonthName(month: Int): String {
+            return when (month) {
+                1 -> "Janeiro"
+                2 -> "Fevereiro"
+                3 -> "Março"
+                4 -> "Abril"
+                5 -> "Maio"
+                6 -> "Junho"
+                7 -> "Julho"
+                8 -> "Agosto"
+                9 -> "Setembro"
+                10 -> "Outubro"
+                11 -> "Novembro"
+                12 -> "Dezembro"
+                else -> ""
+            }
+        }
+    }
     private fun monthCalendar(year: Int, month: Int){
         val firstDayOfMonth = LocalDate.of(year, month, 1)
         val numberOfDaysInMonth = firstDayOfMonth.lengthOfMonth()
@@ -44,28 +67,15 @@ class CalendarioService {
 
     }
 
-    private fun getMonthName(month: Int): String {
-        return when (month) {
-            1 -> "Janeiro"
-            2 -> "Fevereiro"
-            3 -> "Março"
-            4 -> "Abril"
-            5 -> "Maio"
-            6 -> "Junho"
-            7 -> "Julho"
-            8 -> "Agosto"
-            9 -> "Setembro"
-            10 -> "Outubro"
-            11 -> "Novembro"
-            12 -> "Dezembro"
-            else -> ""
-        }
-    }
     fun getMesAtual(): Int {// retorna a quantidades de meses que ja passou desde o start do calendario para centralizar o mesmo no mesmo atual
         val data = LocalDate.now()
         return (data.year - anoInicial) * 12 + data.monthValue - 1
     }
     fun getLista(): MutableList<Mes> {
         return listaMeses
+    }
+
+     fun getDataFormatada(data: LocalDate): String{
+        return "${data.dayOfMonth} de ${getMonthName(data.monthValue)} de ${data.year}"
     }
 }

@@ -7,6 +7,9 @@ android {
     namespace = "com.ivandrosilva.calendarioescala"
     compileSdk = 34
 
+    buildFeatures{
+        viewBinding = true
+    }
     defaultConfig {
         applicationId = "com.ivandrosilva.calendarioescala"
         minSdk = 26
