@@ -29,7 +29,7 @@ class CalendarioService {
         val mes = Mes(contadorMes, getMonthName(month) + " de " + year.toString())
 
         // Adicionando espaço vazio para os primeiros dias
-        for (i in 1 until dayOfWeek) {
+        for (i in 0 until dayOfWeek) {
             mes.addDia(Dia("",null))
         }
 

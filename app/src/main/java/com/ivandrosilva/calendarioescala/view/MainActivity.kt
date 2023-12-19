@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val calendarioService = CalendarioService(2023,1)
+        val calendarioService = CalendarioService(2023,2)
         val listaMeses = calendarioService.getLista()
         var diaSelecionado: CardView? = null
         rvListaMes = findViewById(R.id.recyclerMes) // instancia o recycler view

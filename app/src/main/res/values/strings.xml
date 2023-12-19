@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">CalendarioEscala</string>
+    <string name="dom">DOM</string>
+    <string name="seg">SEG</string>
+    <string name="ter">TER</string>
+    <string name="qua">QUA</string>
+    <string name="qui">QUI</string>
+    <string name="sex">SEX</string>
+    <string name="sab">SAB</string>
+    <string name="janeiro">Janeiro</string>
+    <string name="fevereiro">Fevereiro</string>
+    <string name="marco">Março</string>
+    <string name="abril">Abril</string>
+    <string name="maio">Maio</string>
+    <string name="junho">Junho</string>
+    <string name="julho">Julho</string>
+    <string name="agosto">Agosto</string>
+    <string name="setembro">Setembro</string>
+    <string name="outubro">Outubro</string>
+    <string name="novembro">Novembro</string>
+    <string name="dezembro">Dezembro</string>
 </resources>
