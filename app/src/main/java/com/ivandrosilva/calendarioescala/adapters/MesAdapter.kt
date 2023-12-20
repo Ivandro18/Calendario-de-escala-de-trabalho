@@ -13,7 +13,7 @@ import com.ivandrosilva.calendarioescala.dataclass.Dia
 import com.ivandrosilva.calendarioescala.dataclass.Mes
 
 class MesAdapter(
-    private val clique: (Dia,CardView) -> Unit // evento de clique do item do recycle
+    private val clique: (Dia) -> Unit // evento de clique do item do recycle
 ) : RecyclerView.Adapter<MesAdapter.MesViewHolder>() {
 
     private var listaMeses = mutableListOf<Mes>()

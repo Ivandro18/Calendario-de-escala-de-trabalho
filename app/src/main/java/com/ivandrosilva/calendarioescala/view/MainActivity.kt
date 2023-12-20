@@ -1,9 +1,7 @@
 package com.ivandrosilva.calendarioescala.view
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import com.ivandrosilva.calendarioescala.R
 import com.ivandrosilva.calendarioescala.adapters.MesAdapter
 import com.ivandrosilva.calendarioescala.databinding.ActivityMainBinding
@@ -12,6 +10,9 @@ import org.w3c.dom.Text
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
+    companion object{
+        val calendarioService = CalendarioService(2023,2)// constroi as datas do calendario setando o ano de inicio e a quantidade de anos a ser controido
+    }
     private val binding by lazy {    ActivityMainBinding.inflate(layoutInflater)}
     private lateinit var mesAdapter: MesAdapter
     private var diaSelecionado = LocalDate.now()
@@ -19,16 +20,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val calendarioService = CalendarioService(2023,2)// constroi as datas do calendario setando o ano de inicio e a quantidade de anos a ser controido
         val listaMeses = calendarioService.getLista()
-        var diaSelecionadoView: CardView? = null
 
-        mesAdapter = MesAdapter{ dia, card->
-            Toast.makeText(this, "Mes de  $dia", Toast.LENGTH_SHORT).show()// popup na tela
-            if (diaSelecionadoView != card){ // faz auternar o dia do mes que foi selecionado
-                diaSelecionadoView?.setBackgroundResource(R.color.white)
-                diaSelecionadoView = card
-            }
+        mesAdapter = MesAdapter{ dia->
             diaSelecionado = dia.dataMapa
             diaSelecionado()
         }
@@ -42,7 +36,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun diaSelecionado(){
-        binding.txtDiaEvento.text = CalendarioService.getDataFormatada(diaSelecionado)
+    override fun onResume() {
+        super.onResume()
+        diaSelecionado = LocalDate.now()
+    }
+
+    fun diaSelecionado() {
+        binding.txtDiaEvento.text = calendarioService.getDataFormatada(diaSelecionado)
     }
 }

@@ -12,12 +12,19 @@ import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
 import com.ivandrosilva.calendarioescala.R
 import com.ivandrosilva.calendarioescala.dataclass.Dia
+import com.ivandrosilva.calendarioescala.view.MainActivity
 import java.time.LocalDate
 
 class DiaAdapter(
-private val clique: (Dia,CardView) -> Unit // evento de clique do item do recycle
+private val clique: (Dia) -> Unit // evento de clique do item do recycle
 )
  : RecyclerView.Adapter<DiaAdapter.DiaViewHolder>() {
+    companion object{
+        private var cardAnterior: CardView? = null
+        private var diaSelecionado = MainActivity.calendarioService.mapCalendario[LocalDate.now()]
+        private var startFlag = true
+    }
+
     private var dias = mutableListOf<Dia>()
     inner class DiaViewHolder(
         itemView: View
@@ -27,6 +34,12 @@ private val clique: (Dia,CardView) -> Unit // evento de clique do item do recycl
         val heHoje: ImageView = itemView.findViewById(R.id.marcaDiaAtual)
 
         fun bind(dia: Dia) {
+            cdDia.setOnClickListener {
+                clique(dia)
+                if(diaSelecionado != dia) cardAnterior?.setBackgroundResource(R.color.white)
+                diaSelecionado = dia
+                selecionado(dia)
+            }
             if (dia.dia == ""){ // deixa invisivel os primeiros dias do mes antes do inicio
                 cdDia.isInvisible = true
             }else {
@@ -34,16 +47,22 @@ private val clique: (Dia,CardView) -> Unit // evento de clique do item do recycl
                 if (LocalDate.now() == dia.dataMapa){
                     txtDia.setTextColor(Color.WHITE)
                     heHoje.isInvisible = false
-                    selecionaDia(dia)
+                    if (startFlag) {
+                        cardAnterior =cdDia
+                        startFlag = false
+                    }
                 }
+                selecionado(dia)
             }
-            cdDia.setOnClickListener {
-                selecionaDia(dia)
-            }
+
         }
-        private fun selecionaDia(dia: Dia){
-            clique(dia,cdDia)
-            cdDia.setBackgroundResource(R.color.verde)
+
+        private fun selecionado(dia: Dia){
+            if(dia == diaSelecionado) {
+                cdDia.setBackgroundResource(R.color.verde)
+                cardAnterior =cdDia
+            }
+            else cdDia.setBackgroundResource(R.color.white)
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiaViewHolder {
